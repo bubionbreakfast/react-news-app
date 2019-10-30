@@ -1,8 +1,8 @@
 import React from 'react';
 
 const StorySelector = (props) => {
-    const options = props.id.map((story, index) => {
-        return <option value={index} key={index}>{story}</option>
+    const options = props.stories.map((story, index) => {
+        return <option value={index} key={index}>{story.title}</option>
     })
 
     function handleChange(event){

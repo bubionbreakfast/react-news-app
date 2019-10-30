@@ -6,7 +6,7 @@ class StoryContainer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id: [],
+            ids: [],
             currentStory: null,
             stories: []
         };
@@ -15,35 +15,49 @@ class StoryContainer extends React.Component {
 
     componentDidMount(){
         const url1 = 'https://hacker-news.firebaseio.com/v0/topstories.json';
-       
 
         fetch(url1)
         .then(res => res.json())
-        .then(id => {
-            // Promise.all()
-            this.setState({ id: id })
+        .then(ids => {
+            const promises = ids.slice(0, 25).map(id => {
+                return this.fetchStory(id)
+            })
+            console.log('promises', promises)
+            Promise.all(promises)
+                .then(stories => {
+                    console.log('stories', stories)
+                    this.setState({
+                        stories: stories
+                    })
+                })
         })
         .catch(err => console.error);
     }
 
-    handleStorySelected(index){
-        const selectedStory = this.state.id[index];
-        // this.setState({currentStory: selectedStory})
-        const url2 = `https://hacker-news.firebaseio.com/v0/item/${selectedStory}.json`;
+    async fetchStory(id) {
+        return fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+                    .then(res => res.json())
+    }
 
-        fetch(url2)
-        .then(res => res.json())
-        .then(story => {
-            this.setState({currentStory: story})
-        })
-        .catch(err => console.error);
+    handleStorySelected(index){
+        const selectedStory = this.state.stories[index];
+        this.setState({currentStory: selectedStory})
+        // // this.setState({currentStory: selectedStory})
+        // const url2 = `https://hacker-news.firebaseio.com/v0/item/${selectedStoryId}.json`;
+
+        // fetch(url2)
+        // .then(res => res.json())
+        // .then(story => {
+        //     this.setState({currentStory: story})
+        // })
+        // .catch(err => console.error);
     }
 
     render(){
         return(
             <div>
             <h2>Big Fat HackerNews!</h2>
-            <StorySelector  id = {this.state.id} onStorySelected = {this.handleStorySelected}/>
+            <StorySelector stories={this.state.stories} onStorySelected = {this.handleStorySelected}/>
             <StoryDetail story = {this.state.currentStory}/>
             </div>
         )
