@@ -8,7 +8,8 @@ class StoryContainer extends React.Component {
         this.state = {
             stories: [],
             currentStory: null
-        }
+        };
+        this.handleStorySelected = this.handleStorySelected.bind(this);
     } 
 
     componentDidMount(){
@@ -20,18 +21,21 @@ class StoryContainer extends React.Component {
         .catch(err => console.error);
     }
 
+    handleStorySelected(index){
+        const selectedStory = this.state.stories[index];
+        this.setState({currentStory: selectedStory})
+    }
+
     render(){
         return(
             <div>
             <h2>Im a Story Container</h2>
-            <StorySelector />
-            <StoryDetail />
+            <StorySelector  stories = {this.state.stories} onStorySelected = {this.handleStorySelected}/>
+            <StoryDetail story = {this.state.currentStory}/>
             </div>
         )
     }
 }
-
-
 
 
 
