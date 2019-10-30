@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StorySelector = (props) => {
-    const options = props.stories.map((story, index) => {
+    const options = props.id.map((story, index) => {
         return <option value={index} key={index}>{story}</option>
     })
 

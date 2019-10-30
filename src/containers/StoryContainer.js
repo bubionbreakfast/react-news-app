@@ -6,31 +6,44 @@ class StoryContainer extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            stories: [],
-            currentStory: null
+            id: [],
+            currentStory: null,
+            stories: []
         };
         this.handleStorySelected = this.handleStorySelected.bind(this);
     } 
 
     componentDidMount(){
-        const url = 'https://hacker-news.firebaseio.com/v0/topstories.json';
+        const url1 = 'https://hacker-news.firebaseio.com/v0/topstories.json';
+       
 
-        fetch(url)
+        fetch(url1)
         .then(res => res.json())
-        .then(stories => this.setState({ stories: stories }))
+        .then(id => {
+            // Promise.all()
+            this.setState({ id: id })
+        })
         .catch(err => console.error);
     }
 
     handleStorySelected(index){
-        const selectedStory = this.state.stories[index];
+        const selectedStory = this.state.id[index];
         this.setState({currentStory: selectedStory})
+        const url2 = `https://hacker-news.firebaseio.com/v0/item/{stories.id}.json`;
+
+        fetch(url2)
+        .then(res => res.json())
+        .then(stories => {
+            this.setState({stories: stories.id})
+        })
+        .catch(err => console.error);
     }
 
     render(){
         return(
             <div>
             <h2>Im a Story Container</h2>
-            <StorySelector  stories = {this.state.stories} onStorySelected = {this.handleStorySelected}/>
+            <StorySelector  id = {this.state.id} onStorySelected = {this.handleStorySelected}/>
             <StoryDetail story = {this.state.currentStory}/>
             </div>
         )
