@@ -42,7 +42,7 @@ class StoryContainer extends React.Component {
     render(){
         return(
             <div>
-            <h2>Im a Story Container</h2>
+            <h2>Big Fat HackerNews!</h2>
             <StorySelector  id = {this.state.id} onStorySelected = {this.handleStorySelected}/>
             <StoryDetail story = {this.state.currentStory}/>
             </div>
