@@ -28,13 +28,13 @@ class StoryContainer extends React.Component {
 
     handleStorySelected(index){
         const selectedStory = this.state.id[index];
-        this.setState({currentStory: selectedStory})
-        const url2 = `https://hacker-news.firebaseio.com/v0/item/{stories.id}.json`;
+        // this.setState({currentStory: selectedStory})
+        const url2 = `https://hacker-news.firebaseio.com/v0/item/${selectedStory}.json`;
 
         fetch(url2)
         .then(res => res.json())
-        .then(stories => {
-            this.setState({stories: stories.id})
+        .then(story => {
+            this.setState({currentStory: story})
         })
         .catch(err => console.error);
     }
