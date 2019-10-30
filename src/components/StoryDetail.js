@@ -6,7 +6,7 @@ const StoryDetail = (props) => {
         <div>
             <h3>Title: {props.story.title}</h3>
             <p>By: {props.story.by}</p>
-            <p>Text: {props.story.text}</p>
+            {/* <p>Text: {props.story.text}</p> */}
             <p>Read more>>: <a href={props.story.url}>{props.story.title}</a></p>
         </div>
     )

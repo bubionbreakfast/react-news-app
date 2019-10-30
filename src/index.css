@@ -6,11 +6,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border: 1px solid goldenrod;
-  /* background-image: url('./news.png');
+  background-image: url('./news.png');
   background-repeat: no-repeat;
-  background-position: right;
-  background-size: 30vw; */
+  background-position: top-right;
+  background-size: 10vw;
+  padding-bottom: 200px;
+  /* margin: 10px; */
 
+
+}
+img {
+  padding: 10px;
 }
 
 code {
